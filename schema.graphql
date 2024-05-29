@@ -1,0 +1,13 @@
+type Connector @entity {
+  id: ID!
+  address: Bytes! # address
+  timestamp: BigInt!
+}
+
+type Transfer @entity {
+  id: ID!
+  token: Bytes! # address
+  address: Bytes! # address
+  amount: BigInt!
+  timestamp: BigInt!
+}

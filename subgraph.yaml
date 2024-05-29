@@ -1,0 +1,47 @@
+specVersion: 1.0.0
+description: Bridge Contract
+repository: https://github.com/Taraxa-project/bridge-subgraph
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: BridgeBase
+    network: taraxa
+    source:
+      abi: BridgeBase
+      address: "0xcAF2b453FE8382a4B8110356DF0508f6d71F22BF"
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Connector
+      abis:
+        - name: BridgeBase
+          file: ./abis/BridgeBase.json
+      eventHandlers:
+        - event: ConnectorRegistered(indexed address)
+          handler: handleConnectorRegistered
+      file: ./src/bridge-base.ts
+templates:
+  - kind: ethereum/contract
+    name: TokenConnectorBase
+    network: taraxa
+    source:
+      abi: TokenConnectorBase
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Transfers
+      abis:
+        - name: TokenConnectorBase
+          file: ./abis/TokenConnectorBase.json
+      eventHandlers:
+        - event: ClaimAccrued(indexed address,uint256)
+          handler: handleTransferCreated
+        - event: Claimed(indexed address,uint256)
+          handler: handleTransferClaimed
+      file: ./src/token-connector.ts

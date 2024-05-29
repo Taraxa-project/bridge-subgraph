@@ -1,0 +1,46 @@
+BridgeConnectorBase:
+event Funded(address indexed sender, address indexed connectorBase, uint256 amount);
+event Refunded(address indexed receiver, uint256 amount);
+event StateApplied(bytes indexed state, address indexed receiver, uint256 amount);
+
+TokenConnectorBase -> BridgeConnectorBase:
+event Finalized(uint256 indexed epoch);
+event Initialized(address indexed token, address indexed otherNetworkAddress, address indexed tokenState);
+event StateApplied(bytes state);
+event ClaimAccrued(address indexed account, uint256 value);
+event Claimed(address indexed account, uint256 value);
+
+ERC20LockingConnector -> TokenConnectorBase:
+event Locked(address indexed account, uint256 value);
+
+ERC20MintingConnector -> TokenConnectorBase:
+event Burned(address indexed account, uint256 value);
+
+NativeConnector -> TokenConnectorBase:
+event Locked(address indexed account, uint256 value);
+event AppliedState(bytes state);
+
+BridgeBase:
+event StateApplied(bytes indexed state, address indexed receiver, address indexed connector, uint256 refund);
+event Finalized(uint256 indexed epoch, bytes32 bridgeRoot);
+event ConnectorRegistered(address indexed connector);
+
+EthBridge -> BridgeBase:
+event Initialized(address indexed tara, address indexed light_client, uint256 finalizationInterval);
+
+TaraBridge -> BridgeBase:
+event Initialized(address indexed ethOnTara, address indexed light_client, uint256 finalizationInterval);
+
+TaraClient:
+event Initialized(uint256 threshold, uint256 pillarBlockInterval);
+event ThresholdChanged(uint256 threshold);
+event ValidatorWeightChanged(address indexed validator, uint256 weight);
+event BlockFinalized(PillarBlock.FinalizedBlock finalized);
+
+EthClient:
+event Initialized(address indexed client, address indexed ethBridgeAddress);
+event BridgeRootProcessed(bytes32 indexed bridgeRoot);
+
+TokenState:
+event TransferAdded(address indexed account, address indexed tokenState, uint256 indexed amount);
+event Initialized(uint256 indexed epoch);

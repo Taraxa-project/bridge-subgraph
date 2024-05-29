@@ -1,0 +1,16 @@
+{
+  "name": "@taraxa_project/taraxa-subgraph-bridge",
+  "version": "0.0.1",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "create": "graph create --node http://localhost:8020/ taraxa_project/bridge",
+    "remove": "graph remove --node http://localhost:8020/ taraxa_project/bridge",
+    "deploy": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 taraxa_project/bridge"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.73.0",
+    "@graphprotocol/graph-ts": "0.35.1"
+  }
+}
