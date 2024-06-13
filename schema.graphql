@@ -1,12 +1,23 @@
 type Connector @entity {
   id: ID!
   address: Bytes! # address
+  tokenSource: Bytes! # address
+  tokenDestination: Bytes! # address
   timestamp: BigInt!
 }
 
-type Transfer @entity {
+type Balance @entity {
   id: ID!
-  token: Bytes! # address
+  connector: Bytes! # address
+  address: Bytes! # address
+  amount: BigInt!
+}
+
+type Claim @entity {
+  id: ID!
+  connector: Bytes! # address
+  tokenSource: Bytes! # address
+  tokenDestination: Bytes! # address
   address: Bytes! # address
   amount: BigInt!
   timestamp: BigInt!

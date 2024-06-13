@@ -1,7 +1,14 @@
 {
-  "mainnet": {
-    "Staking": {
-      "address": "0x7Af59Ea121a8Da8e49d2d44856feB7761561995b"
+  "devnet": {
+    "BridgeBase": {
+      "address": "0xcaf2b453fe8382a4b8110356df0508f6d71f22bf",
+      "startBlock": 325
+    }
+  },
+  "holesky": {
+    "BridgeBase": {
+      "address": "0xfc4B70A15fAce3C8df3b4C6eDF9cb07d7f65CE12",
+      "startBlock": 1723066
     }
   }
 }
