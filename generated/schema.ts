@@ -155,6 +155,32 @@ export class Balance extends Entity {
     this.set("connector", Value.fromBytes(value));
   }
 
+  get tokenSource(): Bytes {
+    let value = this.get("tokenSource");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set tokenSource(value: Bytes) {
+    this.set("tokenSource", Value.fromBytes(value));
+  }
+
+  get tokenDestination(): Bytes {
+    let value = this.get("tokenDestination");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set tokenDestination(value: Bytes) {
+    this.set("tokenDestination", Value.fromBytes(value));
+  }
+
   get address(): Bytes {
     let value = this.get("address");
     if (!value || value.kind == ValueKind.NULL) {

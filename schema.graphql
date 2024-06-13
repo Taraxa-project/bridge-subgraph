@@ -9,6 +9,8 @@ type Connector @entity {
 type Balance @entity {
   id: ID!
   connector: Bytes! # address
+  tokenSource: Bytes! # address
+  tokenDestination: Bytes! # address
   address: Bytes! # address
   amount: BigInt!
 }
