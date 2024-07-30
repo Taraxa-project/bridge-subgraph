@@ -1,7 +1,7 @@
 [
   {
     "type": "event",
-    "name": "ClaimAccrued",
+    "name": "Locked",
     "inputs": [
       {
         "name": "account",
@@ -20,7 +20,7 @@
   },
   {
     "type": "event",
-    "name": "Claimed",
+    "name": "Burned",
     "inputs": [
       {
         "name": "account",

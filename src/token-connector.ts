@@ -1,61 +1,54 @@
-import { BigInt, Bytes, dataSource, store } from "@graphprotocol/graph-ts";
+import { Address, BigInt, dataSource, ethereum } from "@graphprotocol/graph-ts";
 import {
-  ClaimAccrued,
-  Claimed,
-} from "../generated/templates/TokenConnectorBase/TokenConnectorBase";
-import { Balance, Claim } from "../generated/schema";
+  Locked,
+  Burned,
+} from "../generated/templates/TokenConnector/TokenConnector";
+import { Transfer } from "../generated/schema";
+
+const NATIVE_TOKEN_PLACEHOLDER = "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
 
 let context = dataSource.context();
 let connector = context.getBytes("connector");
 let tokenSource = context.getBytes("token_source");
 let tokenDestination = context.getBytes("token_destination");
 
-function updateBalance(address: Bytes, amount: BigInt): void {
-  let id = connector.toHexString().concat("-").concat(address.toHexString());
-
-  let balance = Balance.load(id);
-
-  if (balance == null) {
-    balance = new Balance(id);
-    balance.connector = connector;
-    balance.tokenSource = tokenSource;
-    balance.tokenDestination = tokenDestination;
-    balance.address = address;
-    balance.amount = amount;
-  } else {
-    balance.amount = balance.amount.plus(amount);
-
-    if (balance.amount.equals(BigInt.fromI32(0))) {
-      store.remove("Balance", id);
-      return;
-    }
-  }
-
-  balance.save();
+export function handleLocked(event: Locked): void {
+  handleTransfer(event, "lock", event.params.account, event.params.value);
 }
 
-export function handleTransfer(event: ClaimAccrued): void {
-  updateBalance(event.params.account, event.params.value);
+export function handleBurned(event: Burned): void {
+  handleTransfer(event, "burn", event.params.account, event.params.value);
 }
 
-export function handleClaimed(event: Claimed): void {
+export function handleTransfer(
+  event: ethereum.Event,
+  type: string,
+  account: Address,
+  value: BigInt
+): void {
   let id = event.transaction.hash
     .toHexString()
     .concat("-")
     .concat(event.transactionLogIndex.toString());
 
-  let claimedEntity = new Claim(id);
-  claimedEntity.connector = connector;
-  claimedEntity.tokenSource = tokenSource;
-  claimedEntity.tokenDestination = tokenDestination;
-  claimedEntity.address = event.params.account;
-  claimedEntity.amount = event.params.value;
-  claimedEntity.timestamp = event.block.timestamp;
+  let fee = BigInt.fromI32(0);
 
-  claimedEntity.save();
+  if (type == "lock" && tokenSource.toHexString() == NATIVE_TOKEN_PLACEHOLDER) {
+    fee = event.transaction.value.minus(value);
+  } else {
+    fee = event.transaction.value;
+  }
 
-  updateBalance(
-    event.params.account,
-    event.params.value.times(BigInt.fromI32(-1))
-  );
+  let transferEntity = new Transfer(id);
+  transferEntity.transactionHash = event.transaction.hash;
+  transferEntity.type = type;
+  transferEntity.connector = connector;
+  transferEntity.tokenSource = tokenSource;
+  transferEntity.tokenDestination = tokenDestination;
+  transferEntity.address = account;
+  transferEntity.amount = value;
+  transferEntity.fee = fee;
+  transferEntity.timestamp = event.block.timestamp;
+
+  transferEntity.save();
 }

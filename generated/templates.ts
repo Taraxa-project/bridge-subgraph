@@ -6,14 +6,14 @@ import {
   DataSourceContext,
 } from "@graphprotocol/graph-ts";
 
-export class TokenConnectorBase extends DataSourceTemplate {
+export class TokenConnector extends DataSourceTemplate {
   static create(address: Address): void {
-    DataSourceTemplate.create("TokenConnectorBase", [address.toHex()]);
+    DataSourceTemplate.create("TokenConnector", [address.toHex()]);
   }
 
   static createWithContext(address: Address, context: DataSourceContext): void {
     DataSourceTemplate.createWithContext(
-      "TokenConnectorBase",
+      "TokenConnector",
       [address.toHex()],
       context,
     );

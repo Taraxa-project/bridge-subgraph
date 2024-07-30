@@ -1,0 +1,21 @@
+[
+  {
+    "type": "event",
+    "anonymous": false,
+    "name": "ConnectorDelisted",
+    "inputs": [
+      { "type": "address", "name": "connector", "indexed": true },
+      { "type": "uint256", "name": "epoch", "indexed": true }
+    ]
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "name": "ConnectorRegistered",
+    "inputs": [
+      { "type": "address", "name": "connector", "indexed": true },
+      { "type": "address", "name": "token_source", "indexed": true },
+      { "type": "address", "name": "token_destination", "indexed": true }
+    ]
+  }
+]

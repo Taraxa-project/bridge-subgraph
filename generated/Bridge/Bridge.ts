@@ -10,6 +10,28 @@ import {
   BigInt,
 } from "@graphprotocol/graph-ts";
 
+export class ConnectorDelisted extends ethereum.Event {
+  get params(): ConnectorDelisted__Params {
+    return new ConnectorDelisted__Params(this);
+  }
+}
+
+export class ConnectorDelisted__Params {
+  _event: ConnectorDelisted;
+
+  constructor(event: ConnectorDelisted) {
+    this._event = event;
+  }
+
+  get connector(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get epoch(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+}
+
 export class ConnectorRegistered extends ethereum.Event {
   get params(): ConnectorRegistered__Params {
     return new ConnectorRegistered__Params(this);
@@ -36,8 +58,8 @@ export class ConnectorRegistered__Params {
   }
 }
 
-export class BridgeBase extends ethereum.SmartContract {
-  static bind(address: Address): BridgeBase {
-    return new BridgeBase("BridgeBase", address);
+export class Bridge extends ethereum.SmartContract {
+  static bind(address: Address): Bridge {
+    return new Bridge("Bridge", address);
   }
 }

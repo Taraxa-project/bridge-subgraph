@@ -5,11 +5,11 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: BridgeBase
+    name: Bridge
     source:
-      abi: BridgeBase
-      address: "0xfc4B70A15fAce3C8df3b4C6eDF9cb07d7f65CE12"
-      startBlock: 1723066
+      abi: Bridge
+      address: "0x19934742B3EC8e647Bfd0fB4f3e39630d44a4978"
+      startBlock: 1986160
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -17,32 +17,33 @@ dataSources:
       entities:
         - Connector
       abis:
-        - name: BridgeBase
-          file: ./abis/BridgeBase.json
+        - name: Bridge
+          file: ./abis/Bridge.json
       eventHandlers:
         - event: ConnectorRegistered(indexed address,indexed address,indexed address)
           handler: handleConnectorRegistered
-      file: ./src/bridge-base.ts
+        - event: ConnectorDelisted(indexed address,indexed uint256)
+          handler: handleConnectorDelisted
+      file: ./src/bridge.ts
     network: holesky
 templates:
   - kind: ethereum/contract
-    name: TokenConnectorBase
+    name: TokenConnector
     source:
-      abi: TokenConnectorBase
+      abi: TokenConnector
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
-        - Balance
-        - Claim
+        - Transfer
       abis:
-        - name: TokenConnectorBase
-          file: ./abis/TokenConnectorBase.json
+        - name: TokenConnector
+          file: ./abis/TokenConnector.json
       eventHandlers:
-        - event: ClaimAccrued(indexed address,uint256)
-          handler: handleTransfer
-        - event: Claimed(indexed address,uint256)
-          handler: handleClaimed
+        - event: Locked(indexed address,uint256)
+          handler: handleLocked
+        - event: Burned(indexed address,uint256)
+          handler: handleBurned
       file: ./src/token-connector.ts
     network: holesky

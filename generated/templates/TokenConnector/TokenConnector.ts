@@ -10,16 +10,16 @@ import {
   BigInt,
 } from "@graphprotocol/graph-ts";
 
-export class ClaimAccrued extends ethereum.Event {
-  get params(): ClaimAccrued__Params {
-    return new ClaimAccrued__Params(this);
+export class Locked extends ethereum.Event {
+  get params(): Locked__Params {
+    return new Locked__Params(this);
   }
 }
 
-export class ClaimAccrued__Params {
-  _event: ClaimAccrued;
+export class Locked__Params {
+  _event: Locked;
 
-  constructor(event: ClaimAccrued) {
+  constructor(event: Locked) {
     this._event = event;
   }
 
@@ -32,16 +32,16 @@ export class ClaimAccrued__Params {
   }
 }
 
-export class Claimed extends ethereum.Event {
-  get params(): Claimed__Params {
-    return new Claimed__Params(this);
+export class Burned extends ethereum.Event {
+  get params(): Burned__Params {
+    return new Burned__Params(this);
   }
 }
 
-export class Claimed__Params {
-  _event: Claimed;
+export class Burned__Params {
+  _event: Burned;
 
-  constructor(event: Claimed) {
+  constructor(event: Burned) {
     this._event = event;
   }
 
@@ -54,8 +54,8 @@ export class Claimed__Params {
   }
 }
 
-export class TokenConnectorBase extends ethereum.SmartContract {
-  static bind(address: Address): TokenConnectorBase {
-    return new TokenConnectorBase("TokenConnectorBase", address);
+export class TokenConnector extends ethereum.SmartContract {
+  static bind(address: Address): TokenConnector {
+    return new TokenConnector("TokenConnector", address);
   }
 }

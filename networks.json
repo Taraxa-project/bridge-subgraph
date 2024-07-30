@@ -1,14 +1,14 @@
 {
-  "devnet": {
-    "BridgeBase": {
-      "address": "0xcaf2b453fe8382a4b8110356df0508f6d71f22bf",
-      "startBlock": 325
+  "testnet": {
+    "Bridge": {
+      "address": "0xcAF2b453FE8382a4B8110356DF0508f6d71F22BF",
+      "startBlock": 0
     }
   },
   "holesky": {
-    "BridgeBase": {
-      "address": "0xfc4B70A15fAce3C8df3b4C6eDF9cb07d7f65CE12",
-      "startBlock": 1723066
+    "Bridge": {
+      "address": "0x19934742B3EC8e647Bfd0fB4f3e39630d44a4978",
+      "startBlock": 1986160
     }
   }
 }
