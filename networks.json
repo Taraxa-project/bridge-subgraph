@@ -1,4 +1,10 @@
 {
+  "taraxa": {
+    "Bridge": {
+      "address": "0xe126E0BaeAE904b8Cfd619Be1A8667A173b763a1",
+      "startBlock": 11617700
+    }
+  },
   "testnet": {
     "Bridge": {
       "address": "0xcAF2b453FE8382a4B8110356DF0508f6d71F22BF",
@@ -9,6 +15,12 @@
     "Bridge": {
       "address": "0x19934742B3EC8e647Bfd0fB4f3e39630d44a4978",
       "startBlock": 1986160
+    }
+  },
+  "ethereum": {
+    "Bridge": {
+      "address": "0x359CF536b1fd6248ebAd1449E1B3727caB33A01d",
+      "startBlock": 20476690
     }
   }
 }

@@ -7,10 +7,10 @@
     "build": "graph build",
     "create-taraxa": "graph create --node http://localhost:8020/ bridge/taraxa",
     "remove-taraxa": "graph remove --node http://localhost:8020/ bridge/taraxa",
-    "deploy-taraxa": "graph deploy --network testnet --network-file networks.json -l v0.0.1 --node http://localhost:8020/ --ipfs http://localhost:5001 bridge/taraxa",
+    "deploy-taraxa": "graph deploy --network taraxa --network-file networks.json -l v0.0.1 --node http://localhost:8020/ --ipfs http://localhost:5001 bridge/taraxa",
     "create-ethereum": "graph create --node http://localhost:8020/ bridge/ethereum",
     "remove-ethereum": "graph remove --node http://localhost:8020/ bridge/ethereum",
-    "deploy-ethereum": "graph deploy --network holesky --network-file networks.json -l v0.0.1 --node http://localhost:8020/ --ipfs http://localhost:5001 bridge/ethereum"
+    "deploy-ethereum": "graph deploy --network ethereum --network-file networks.json -l v0.0.1 --node http://localhost:8020/ --ipfs http://localhost:5001 bridge/ethereum"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.73.0",

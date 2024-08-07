@@ -8,8 +8,8 @@ dataSources:
     name: Bridge
     source:
       abi: Bridge
-      address: "0x19934742B3EC8e647Bfd0fB4f3e39630d44a4978"
-      startBlock: 1986160
+      address: "0x359CF536b1fd6248ebAd1449E1B3727caB33A01d"
+      startBlock: 20476690
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -24,8 +24,10 @@ dataSources:
           handler: handleConnectorRegistered
         - event: ConnectorDelisted(indexed address,indexed uint256)
           handler: handleConnectorDelisted
+        - event: AssetBridged(indexed address,indexed address,uint256)
+          handler: handleAssetBridged
       file: ./src/bridge.ts
-    network: holesky
+    network: ethereum
 templates:
   - kind: ethereum/contract
     name: TokenConnector
@@ -46,4 +48,4 @@ templates:
         - event: Burned(indexed address,uint256)
           handler: handleBurned
       file: ./src/token-connector.ts
-    network: holesky
+    network: ethereum
