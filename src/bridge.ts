@@ -1,10 +1,9 @@
-import { BigInt, DataSourceContext } from "@graphprotocol/graph-ts";
+import { DataSourceContext } from "@graphprotocol/graph-ts";
 import {
   ConnectorRegistered,
   ConnectorDelisted,
-  AssetBridged,
 } from "../generated/Bridge/Bridge";
-import { Connector, Transfer } from "../generated/schema";
+import { Connector } from "../generated/schema";
 import { TokenConnector } from "../generated/templates";
 
 export function handleConnectorRegistered(event: ConnectorRegistered): void {
@@ -36,32 +35,4 @@ export function handleConnectorDelisted(event: ConnectorDelisted): void {
   }
   connectorEntity.delisted = true;
   connectorEntity.save();
-}
-
-export function handleAssetBridged(event: AssetBridged): void {
-  let connector = event.params.connector;
-  let id = connector.toHexString();
-
-  let connectorEntity = Connector.load(id);
-  if (connectorEntity == null) {
-    return;
-  }
-
-  let transferId = event.transaction.hash
-    .toHexString()
-    .concat("-")
-    .concat(event.transactionLogIndex.toString());
-
-  let transferEntity = new Transfer(transferId);
-  transferEntity.transactionHash = event.transaction.hash;
-  transferEntity.type = "mint";
-  transferEntity.connector = connectorEntity.address;
-  transferEntity.tokenSource = connectorEntity.tokenSource;
-  transferEntity.tokenDestination = connectorEntity.tokenDestination;
-  transferEntity.address = event.params.account;
-  transferEntity.amount = event.params.value;
-  transferEntity.fee = BigInt.fromI32(0);
-  transferEntity.timestamp = event.block.timestamp;
-
-  transferEntity.save();
 }

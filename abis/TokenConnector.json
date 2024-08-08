@@ -36,5 +36,30 @@
       }
     ],
     "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "AssetBridged",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "connector",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "type": "address",
+        "name": "account",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "type": "uint256",
+        "name": "value",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
   }
 ]

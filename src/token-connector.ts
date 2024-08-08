@@ -2,8 +2,10 @@ import { Address, BigInt, dataSource, ethereum } from "@graphprotocol/graph-ts";
 import {
   Locked,
   Burned,
+  AssetBridged,
 } from "../generated/templates/TokenConnector/TokenConnector";
 import { Transfer } from "../generated/schema";
+import { Bridge } from "../generated/Bridge/Bridge";
 
 const NATIVE_TOKEN_PLACEHOLDER = "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
 
@@ -18,6 +20,10 @@ export function handleLocked(event: Locked): void {
 
 export function handleBurned(event: Burned): void {
   handleTransfer(event, "burn", event.params.account, event.params.value);
+}
+
+export function handleAssetBridged(event: AssetBridged): void {
+  handleTransfer(event, "mint", event.params.account, event.params.value);
 }
 
 export function handleTransfer(
@@ -43,8 +49,15 @@ export function handleTransfer(
   transferEntity.transactionHash = event.transaction.hash;
   transferEntity.type = type;
   transferEntity.connector = connector;
-  transferEntity.tokenSource = tokenSource;
-  transferEntity.tokenDestination = tokenDestination;
+
+  if (type == "mint") {
+    transferEntity.tokenSource = tokenDestination;
+    transferEntity.tokenDestination = tokenSource;
+  } else {
+    transferEntity.tokenSource = tokenSource;
+    transferEntity.tokenDestination = tokenDestination;
+  }
+
   transferEntity.address = account;
   transferEntity.amount = value;
   transferEntity.fee = fee;

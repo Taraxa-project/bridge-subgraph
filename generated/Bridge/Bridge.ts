@@ -58,32 +58,6 @@ export class ConnectorRegistered__Params {
   }
 }
 
-export class AssetBridged extends ethereum.Event {
-  get params(): AssetBridged__Params {
-    return new AssetBridged__Params(this);
-  }
-}
-
-export class AssetBridged__Params {
-  _event: AssetBridged;
-
-  constructor(event: AssetBridged) {
-    this._event = event;
-  }
-
-  get connector(): Address {
-    return this._event.parameters[0].value.toAddress();
-  }
-
-  get account(): Address {
-    return this._event.parameters[1].value.toAddress();
-  }
-
-  get value(): BigInt {
-    return this._event.parameters[2].value.toBigInt();
-  }
-}
-
 export class Bridge extends ethereum.SmartContract {
   static bind(address: Address): Bridge {
     return new Bridge("Bridge", address);
