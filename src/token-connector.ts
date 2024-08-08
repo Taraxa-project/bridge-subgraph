@@ -61,6 +61,7 @@ export function handleTransfer(
   transferEntity.address = account;
   transferEntity.amount = value;
   transferEntity.fee = fee;
+  transferEntity.block = event.block.number;
   transferEntity.timestamp = event.block.timestamp;
 
   transferEntity.save();

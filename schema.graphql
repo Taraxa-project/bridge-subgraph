@@ -4,6 +4,7 @@ type Connector @entity {
   tokenSource: Bytes! # address
   tokenDestination: Bytes! # address
   delisted: Boolean!
+  block: BigInt!
   timestamp: BigInt!
 }
 
@@ -17,5 +18,6 @@ type Transfer @entity {
   address: Bytes! # address
   amount: BigInt!
   fee: BigInt!
+  block: BigInt!
   timestamp: BigInt!
 }

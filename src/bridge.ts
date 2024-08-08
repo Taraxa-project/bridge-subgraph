@@ -14,6 +14,7 @@ export function handleConnectorRegistered(event: ConnectorRegistered): void {
   connectorEntity.address = connector;
   connectorEntity.tokenSource = event.params.token_source;
   connectorEntity.tokenDestination = event.params.token_destination;
+  connectorEntity.block = event.block.number;
   connectorEntity.timestamp = event.block.timestamp;
   connectorEntity.delisted = false;
   connectorEntity.save();
